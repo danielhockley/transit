@@ -2,9 +2,6 @@
 var express = require('express')
 var app = express()
 
-// Routes
-var routes = require('./routes/index')
-
 // Other packages
 var request = require('request')
 var nunjucks = require('nunjucks')
@@ -15,6 +12,9 @@ nunjucks.configure('views', {
 	express: app
 })
 app.set('view engine', nunjucks)
+
+// Routes
+var routes = require('./src/routes.js')
 
 // Middleware to load data from transit.land
 app.use('/', function(req, res, next) {
