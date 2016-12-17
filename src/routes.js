@@ -13,8 +13,9 @@ router.get('/', function(req, res) {
 	}
 	
 	// Send to page
-	res.type('application/javascript')
-	res.send(operators)
+	res.render("index.html", {
+		title : "List of Transit Providers"
+	})
 })
 
 // Route to spit out whole json object
