@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
 	res.send(operators)
 })
 
-// Spit out whole json object
+// Route to spit out whole json object
 router.get('/json', function(req, res) {
 	
 	var operators = res.locals.operators
@@ -33,7 +33,7 @@ router.get('/json', function(req, res) {
 	//res.send('hello')
 })
 
-// // Middleware to load data from transit.land
+// Middleware to load data from transit.land
 app.use('/', function(req, res, next) {
 	var operators = request('https://transit.land/api/v1/operators', function(error, response, body) {
 		if (!error && response.statusCode == 200) {
