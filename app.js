@@ -2,36 +2,19 @@
 var express = require('express')
 var app = express()
 
-// Router
-var router = express.Router()
+// Routes
+var routes = require('./routes/index')
 
 // Other packages
 var request = require('request')
+var nunjucks = require('nunjucks')
 
-// Root route
-router.get('/', function(req, res) {
-	
-	var operators = res.locals.operators.operators
-	
-	for (var i=0; i<Object.keys(operators).length; i++){
-		console.log(operators[i].name + '\n')
-	}
-	
-	// Send to page
-	res.type('application/javascript')
-	res.send(operators)
+// Set up nunjucks
+nunjucks.configure('views', {
+	autoescape: true,
+	express: app
 })
-
-// Route to spit out whole json object
-router.get('/json', function(req, res) {
-	
-	var operators = res.locals.operators
-	//console.log(operators)
-
-	res.type('application/javascript')
-	res.send(operators)
-	//res.send('hello')
-})
+app.set('view engine', nunjucks)
 
 // Middleware to load data from transit.land
 app.use('/', function(req, res, next) {
@@ -45,7 +28,7 @@ app.use('/', function(req, res, next) {
   	})
 })
 
-app.use('/', router)
+app.use('/', routes)
 
 // 404
 app.use(function(req, res) {
