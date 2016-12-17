@@ -13,6 +13,12 @@
 </head>
 
 <body>
-	{{ title }}
+	<b>{{ title }}</b>
+
+	<ul>
+		{% for operator in listOperators %}
+			<li>{{ operator.name }}</li>
+		{% endfor %}
+	</ul>
 </body>
 </html>

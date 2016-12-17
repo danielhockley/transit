@@ -4,17 +4,28 @@ var request = require('request')
 var router = express.Router()
 
 // Root route
+// Load a nunjucks template and list out all transit operators loaded from the transit.land API
 router.get('/', function(req, res) {
 	
 	var operators = res.locals.operators.operators
+	var listOperators = []
+	var operator
 	
+	// Create smaller operators object to pass to template
 	for (var i=0; i<Object.keys(operators).length; i++){
-		console.log(operators[i].name + '\n')
+		operator = operators[i].name
+		listOperators[i] = {
+			id : i,
+			name : operators[i].name,
+		}
 	}
+
+	console.log(listOperators)
 	
-	// Send to page
+	// Render template
 	res.render("index.html", {
-		title : "List of Transit Providers"
+		title : "List of Transit Providers",
+		listOperators : listOperators
 	})
 })
 
