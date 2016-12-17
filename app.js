@@ -16,17 +16,10 @@ app.set('view engine', nunjucks)
 // Routes
 var routes = require('./src/routes.js')
 
-// Middleware to load data from transit.land
-app.use('/', function(req, res, next) {
-	var operators = request('https://transit.land/api/v1/operators', function(error, response, body) {
-		if (!error && response.statusCode == 200) {
-			res.locals.operators = JSON.parse(body)
-			next()
-		}
-	}).on('error', function(err) {
-    	console.log(err)
-  	})
-})
+// Middlewares
+var middlewares = require('./src/middlewares.js')
+
+app.use('/', middlewares.getData)
 
 app.use('/', routes)
 
